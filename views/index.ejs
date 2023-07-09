@@ -1,0 +1,19 @@
+<!-- index.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Travel App</title>
+</head>
+<body>
+  <h1>My Trips</h1>
+  <ul>
+    <% trips.forEach((trip) => { %>
+      <li>
+        <h3><%= trip.destination %></h3>
+        <p>Dates: <%= trip.dates.join(', ') %></p>
+        <p><a href="/trips/<%= trip._id %>">View Details</a></p>
+      </li>
+    <% }) %>
+  </ul>
+</body>
+</html>

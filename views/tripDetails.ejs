@@ -1,0 +1,38 @@
+<!-- tripDetails.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Trip Details</title>
+</head>
+<body>
+  <h1><%= trip.destination %></h1>
+  <p>Dates: <%= trip.dates.join(', ') %></p>
+  <h2>Itinerary</h2>
+  <p><%= trip.itinerary %></p>
+  <h2>Activities</h2>
+  <ul>
+    <% trip.activities.forEach((activity) => { %>
+      <li><%= activity.name %> - <%= activity.time %></li>
+    <% }) %>
+  </ul>
+  <h2>Daily Schedule</h2>
+  <% trip.schedule.forEach((dailySchedule) => { %>
+    <h3>Date: <%= dailySchedule.date %></h3>
+    <ul>
+      <% dailySchedule.activities.forEach((activity) => { %>
+        <li><%= activity.name %> - <%= activity.time %></li>
+      <% }) %>
+    </ul>
+  <% }) %>
+  <h2>Notes</h2>
+  <ul>
+    <% trip.notes.forEach((note) => { %>
+      <li><%= note %></li>
+    <% }) %>
+  </ul>
+  <a href="/trips/<%= trip._id %>/edit">Edit</a>
+  <form action="/trips/<%= trip._id %>/delete" method="POST">
+    <button type="submit">Delete</button>
+  </form>
+</body>
+</html>
