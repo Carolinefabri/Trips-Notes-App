@@ -15,6 +15,22 @@ body {
     display: flex;
     min-height: 50vh;
     min-width:50vw;
+
+
+}
+
+body.home {
+  background-image: url("./images/capahome.png");
+  position: absolute;
+  top: 0%;
+  left:50%;
+  width: 10%;
+  height: 10%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 100%;
+
 }
 
 /*  pagina signin */
