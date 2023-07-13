@@ -5,7 +5,8 @@ const registerRouter = require('./routes/register');
 const Trip = require('./models/trip');
 
 const app = express();
-const MONGODB_URI = 'mongodb://localhost:27017/travelgraphy';
+app.use(express.static('public'));
+const MONGODB_URI = 'mongodb://127.0.0.1:27017/travelgraphy';
 
 // Configurações do servidor
 app.set('view engine', 'ejs');
