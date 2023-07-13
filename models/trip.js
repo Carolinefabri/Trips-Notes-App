@@ -1,19 +1,14 @@
-// models/trip.js
 const mongoose = require('mongoose');
 
 const tripSchema = new mongoose.Schema({
-  destination: {
-    type: String,
-    required: true,
-  },
-  dates: {
-    type: [Date],
-    required: true,
-  },
-  itinerary: {
-    type: String,
-    required: true,
-  },
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  startDate: { type: Date, required: true },
+  endDate: { type: Date, required: true },
+  location: { type: String, required: true },
+  image: { type: String, required: true },
 });
 
-module.exports = mongoose.model('Trip', tripSchema);
+const Trip = mongoose.model('Trip', tripSchema);
+
+module.exports = Trip;
