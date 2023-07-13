@@ -13,8 +13,21 @@ body {
     color: white;
     font-weight: 500;
     display: flex;
-    min-height: 100vh;
-    min-width: 100vw;
+    min-height: 50vh;
+    min-width:50vw;
+}
+
+body.home {
+  background-image: url("./images/capahome.png");
+  position: absolute;
+  top: 0%;
+  left:50%;
+  width: 10%;
+  height: 10%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 100%;
 }
 
 main {
@@ -203,3 +216,6 @@ section.images .circle {
 
   .gallery-item .comment {
     margin-top: 10px;}
+
+    .create-post-button {
+        margin-top: 20px;}
