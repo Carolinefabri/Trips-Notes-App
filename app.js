@@ -1,9 +1,11 @@
 require('dotenv').config();
 const express = require('express');
+const session = require('express-session');
 const mongoose = require('mongoose');
 const User = require('./models/user');
 const Trip = require('./models/trip');
 const Photo = require('./models/photo');
+const bcrypt = require('bcrypt');
 
 const app = express();
 app.use(express.static('public'));
@@ -32,6 +34,12 @@ mongoose.connect(MONGODB_URI, {
 
       return false; // Autenticação falhou
     };
+
+    app.use(session({
+      secret: 'seu_secreto_aqui',
+      resave: false,
+      saveUninitialized: true
+    }));
 
     // Rota da página inicial
     app.get('/', (req, res) => {
@@ -68,42 +76,62 @@ mongoose.connect(MONGODB_URI, {
       res.render('signin');
     });
 
-    // Rota de autenticação (página de login)
-    app.post('/signin', (req, res) => {
-      const { email, password } = req.body;
+   
+   // Rota de autenticação (página de login)
 
-      // Verifique a autenticidade do usuário usando a lógica de autenticação adequada
-      const isAuthenticated = authenticateUser(email, password);
-
-      if (isAuthenticated) {
-        // Autenticação bem-sucedida
-        res.redirect('/admin'); // Redirecione para a página de administração
+   app.post('/signin', async (req, res) => {
+    const { email, password } = req.body;
+  
+    try {
+      // Verifique a autenticidade do usuário consultando o banco de dados
+      const user = await User.findOne({ email });
+  
+      if (user) {
+        // Verifique se a senha fornecida corresponde à senha armazenada no banco de dados
+        const isPasswordValid = await user.comparePassword(password);
+  
+        if (isPasswordValid) {
+          // Autenticação bem-sucedida
+          req.session.userId = user._id; // Armazene o ID do usuário na sessão
+          res.redirect('/admin'); // Redirecione para a página de administração
+        } else {
+          // Senha incorreta
+          res.render('signin', { errorMsg: 'Email or password is incorrect' });
+        }
       } else {
-        // Autenticação falhou
+        // Usuário não encontrado
+        res.render('signin', { errorMsg: 'Email or password is incorrect' });
+      }
+    } catch (error) {
+      console.error('Error authenticating user:', error);
+      res.status(500).send('Error authenticating user');
+    }
+  });
+  
+    // Middleware de autenticação
+    const requireAuth = (req, res, next) => {
+      if (req.session.userId) {
+        // O usuário está autenticado, permita o acesso à rota de administração
+        next();
+      } else {
+        // O usuário não está autenticado, redirecione para a página de login
         res.redirect('/signin');
       }
-    });
+    };
 
     // Rota da página de administração
-    app.get('/admin', (req, res) => {
-      const trips = [
-        {
-          destination: 'Trip 1',
-          date: '2023-07-12',
-          comment: 'This is trip 1',
-          image: 'trip1.jpg',
-        },
-        {
-          destination: 'Trip 2',
-          date: '2023-07-13',
-          comment: 'This is trip 2',
-          image: 'trip2.jpg',
-        },
-      ];
+app.get('/admin', requireAuth, async (req, res) => {
+  try {
+    // Obtenha os posts (trips) do banco de dados ou de outra fonte de dados
+    const trips = await Trip.find();
 
-      // Renderize a página de administração e passe os dados das trips como variável
-      res.render('admin', { trips });
-    });
+    // Renderize a página de administração e passe os dados das trips como variável
+    res.render('admin', { trips });
+  } catch (error) {
+    console.error('Error retrieving trips:', error);
+    res.status(500).send('Error retrieving trips');
+  }
+});
 
     // Rota para exibir todos os usuários
     app.get('/users', async (req, res) => {
@@ -166,8 +194,8 @@ mongoose.connect(MONGODB_URI, {
     // Rota para criar uma nova viagem
     app.post('/trips', async (req, res) => {
       try {
-        const { destination, dates, itinerary } = req.body;
-        const trip = new Trip({ destination, dates, itinerary });
+        const { destination, date, comment, image } = req.body;
+        const trip = new Trip({ destination, date, comment, image });
         await trip.save();
         res.redirect('/trips');
       } catch (error) {
@@ -179,8 +207,8 @@ mongoose.connect(MONGODB_URI, {
     // Rota para atualizar uma viagem existente
     app.put('/trips/:id', async (req, res) => {
       try {
-        const { destination, dates, itinerary } = req.body;
-        const updatedTrip = await Trip.findByIdAndUpdate(req.params.id, { destination, dates, itinerary }, { new: true });
+        const { destination, date, comment, image } = req.body;
+        const updatedTrip = await Trip.findByIdAndUpdate(req.params.id, { destination, date, comment, image }, { new: true });
         res.redirect('/trips');
       } catch (error) {
         console.error('Error updating trip:', error);
