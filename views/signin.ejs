@@ -2,30 +2,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My Travel App - Sign In</title>
+  <title>Travelgraphy - Sign In</title>
   <link rel="stylesheet" href="style.css">
-  
 </head>
-<body>
-  <h1>Travelgraphy App </h1>
-  <!-- Conteúdo da página de login -->
 
+<body>
+  <main class ="capahomesemfundo">
+    <img src="../images/capahomesemfundo.png" alt="logoroxo">
+  <h1> Sign In</h1>
+  <!-- Conteúdo da página de login -->
   <div class="container">
     <% if (typeof errorMsg !== 'undefined') { %>
       <div class="error-message"><%= errorMsg %></div>
     <% } %>
-    <form class="signin-form" action="/signin" method="POST">
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
-      </div>
-      <button type="submit" class="btn btn-primary"  href="/admin"> Sign In</button>
-    </form>
-  </div>
  
+    <form action="/signin" method="POST">
+        <label for="email">
+          <span>Email</span>
+          <input type="email"  id="email" name="email" placeholder="Enter your email" required>
+        </label>
+     
+        <label for="password">
+          <span>Password</span>
+          <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        </label>
+
+
+          <button type="submit" class="button-container"  href="/admin"> Sign In</button>
+          <button type="submit" class="button-container"  href="/home"> Home Page</button>
+        </div>
+    </form>
+    </div>
+  </main>
 </body>
 </html>
