@@ -17,6 +17,14 @@ body {
     min-width:50vw;
 }
 
+/*  pagina home */
+#ohome {    
+width: 50vw;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+}
+
 /*  pagina signin */
 
 body.signin {
@@ -42,7 +50,7 @@ body.signin {
       margin-right: 50px; /* Ajuste a margem conforme necessário */
     }
 
-    
+
 .container {
     display: flex;
     flex-direction: row;
