@@ -179,3 +179,27 @@ section.images .circle {
         font-size: 1rem;
     }
 }
+
+
+
+
+
+/*  admin  */
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+  }
+
+  .gallery-item {
+    text-align: center;
+  }
+
+  .gallery-item img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .gallery-item .comment {
+    margin-top: 10px;}
