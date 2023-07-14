@@ -10,15 +10,8 @@
   <h1>Travel Gallery</h1>
   <p>Here they are, my favorite travel memories</p>
   <!-- Adicione o conteúdo da galeria -->
-  <div class="gallery">
-    <% trips.forEach((trip) => { %>
-      <div class="gallery-item">
-        <img src="<%= trip.image %>" alt="<%= trip.destination %>">
-        <div class="comment"><%= trip.comment %></div>
-      </div>
-    <% }); %>
-  </div>
-  <a class="create-post-button" href="/create-post">Create New Post</a>
+
+  <a class="create-post-button" href="/new-post">Create New Post</a>
 
 </body>
 </html>
