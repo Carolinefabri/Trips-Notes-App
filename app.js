@@ -4,9 +4,13 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 multer = require('multer');
 path = require('path')
+multer = require('multer');
+path = require('path')
 const User = require('./models/user');
 const Trip = require('./models/trip');
 const bcrypt = require('bcrypt');
+const postRoutes = require('./routes/create-post');
+
 const postRoutes = require('./routes/create-post');
 
 
@@ -18,6 +22,10 @@ const MONGODB_URI = 'mongodb://127.0.0.1:27017/travelgraphy';
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use('/posts', postRoutes);
+
+
+
 app.use('/posts', postRoutes);
 
 
@@ -41,6 +49,12 @@ mongoose.connect(MONGODB_URI, {
 
       return false; // Autenticação falhou
     };
+
+
+const imageStorage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, 'public/images'),
+  filename: (req, file, cb) => cb(null, file.originalname)
+})
 
 
 const imageStorage = multer.diskStorage({
@@ -119,6 +133,37 @@ const imageStorage = multer.diskStorage({
       }
     });
 
+
+    // Rota de autenticação (página de login)
+    app.post('/signin', async (req, res) => {
+      const { email, password } = req.body;
+
+      try {
+        // Verifique a autenticidade do usuário consultando o banco de dados
+        const user = await User.findOne({ email });
+
+        if (user) {
+          // Verifique se a senha fornecida corresponde à senha armazenada no banco de dados
+          const isPasswordValid = await user.comparePassword(password);
+
+          if (isPasswordValid) {
+            // Autenticação bem-sucedida
+            req.session.userId = user._id; // Armazene o ID do usuário na sessão
+            res.redirect('/admin'); // Redirecione para a página de administração
+          } else {
+            // Senha incorreta
+            res.render('signin', { errorMsg: 'Email or password is incorrect' });
+          }
+        } else {
+          // Usuário não encontrado
+          res.render('signin', { errorMsg: 'Email or password is incorrect' });
+        }
+      } catch (error) {
+        console.error('Error authenticating user:', error);
+        res.status(500).send('Error authenticating user');
+      }
+    });
+
     // Middleware de autenticação
     const requireAuth = (req, res, next) => {
       if (req.session.userId) {
@@ -135,7 +180,18 @@ const imageStorage = multer.diskStorage({
       try {
         // Obtenha os posts (trips) do banco de dados ou de outra fonte de dados
         const trips = await Trip.find();
+    app.get('/admin', requireAuth, async (req, res) => {
+      try {
+        // Obtenha os posts (trips) do banco de dados ou de outra fonte de dados
+        const trips = await Trip.find();
 
+        // Renderize a página de administração e passe os dados das trips como variável
+        res.render('admin', { trips });
+      } catch (error) {
+        console.error('Error retrieving trips:', error);
+        res.status(500).send('Error retrieving trips');
+      }
+    });
         // Renderize a página de administração e passe os dados das trips como variável
         res.render('admin', { trips });
       } catch (error) {
