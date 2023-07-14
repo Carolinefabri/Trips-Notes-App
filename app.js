@@ -2,15 +2,12 @@ require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const mongoose = require('mongoose');
-multer = require('multer');
-path = require('path')
-multer = require('multer');
-path = require('path')
+const multer = require('multer');
+const path = require('path');
 const User = require('./models/user');
-const Trip = require('./models/trip');
+const Post = require('./models/Post.model');
+const postRoutes = require('./routes/posts.routes');
 const bcrypt = require('bcrypt');
-const postRoutes = require('./routes/create-post');
-
 
 
 const app = express();
@@ -19,20 +16,18 @@ const MONGODB_URI = 'mongodb://127.0.0.1:27017/travelgraphy';
 
 // Configurações do servidor
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use('/posts', postRoutes);
 
-
-
-app.use('/posts', postRoutes);
-
-
 // Conectar ao banco de dados
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose
+  .connect(MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log('Connected to the database');
 
@@ -47,11 +42,13 @@ mongoose.connect(MONGODB_URI, {
       return false; // Autenticação falhou
     };
 
-    app.use(session({
-      secret: 'seu_secreto_aqui',
-      resave: false,
-      saveUninitialized: true
-    }));
+    app.use(
+      session({
+        secret: 'seu_secreto_aqui',
+        resave: false,
+        saveUninitialized: true,
+      })
+    );
 
     // Rota da página inicial
     app.get('/', (req, res) => {
@@ -62,6 +59,7 @@ mongoose.connect(MONGODB_URI, {
     app.get('/register', (req, res) => {
       res.render('register');
     });
+
 
     // Rota para lidar com o registro de usuários (POST)
     app.post('/register', async (req, res) => {
@@ -123,38 +121,20 @@ mongoose.connect(MONGODB_URI, {
       }
     });
 
+   
 
-    // Rota de autenticação (página de login)
-    app.post('/signin', async (req, res) => {
-      const { email, password } = req.body;
+// postRoutes middleware
+const postRoutes = (req, res, next) => {
+  // código do middleware específico para as rotas de posts
+  next(); // chamar next() para passar a execução para o próximo middleware ou rota
+};
 
-      try {
-        // Verifique a autenticidade do usuário consultando o banco de dados
-        const user = await User.findOne({ email });
+// Utilização do middleware postRoutes para rotas relacionadas aos posts
+app.use('/posts', postRoutes);
 
-        if (user) {
-          // Verifique se a senha fornecida corresponde à senha armazenada no banco de dados
-          const isPasswordValid = await user.comparePassword(password);
 
-          if (isPasswordValid) {
-            // Autenticação bem-sucedida
-            req.session.userId = user._id; // Armazene o ID do usuário na sessão
-            res.redirect('/admin'); // Redirecione para a página de administração
-          } else {
-            // Senha incorreta
-            res.render('signin', { errorMsg: 'Email or password is incorrect' });
-          }
-        } else {
-          // Usuário não encontrado
-          res.render('signin', { errorMsg: 'Email or password is incorrect' });
-        }
-      } catch (error) {
-        console.error('Error authenticating user:', error);
-        res.status(500).send('Error authenticating user');
-      }
-    });
+ // Middleware de autenticação
 
-    // Middleware de autenticação
     const requireAuth = (req, res, next) => {
       if (req.session.userId) {
         // O usuário está autenticado, permita o acesso à rota de administração
@@ -169,24 +149,13 @@ mongoose.connect(MONGODB_URI, {
     app.get('/admin', requireAuth, async (req, res) => {
       try {
         // Obtenha os posts (trips) do banco de dados ou de outra fonte de dados
-        const trips = await Trip.find();
-    app.get('/admin', requireAuth, async (req, res) => {
-      try {
-        // Obtenha os posts (trips) do banco de dados ou de outra fonte de dados
-        const trips = await Trip.find();
+        const posts = await Post.find();
 
         // Renderize a página de administração e passe os dados das trips como variável
-        res.render('admin', { trips });
+        res.render('admin', { posts });
       } catch (error) {
-        console.error('Error retrieving trips:', error);
-        res.status(500).send('Error retrieving trips');
-      }
-    });
-        // Renderize a página de administração e passe os dados das trips como variável
-        res.render('admin', { trips });
-      } catch (error) {
-        console.error('Error retrieving trips:', error);
-        res.status(500).send('Error retrieving trips');
+        console.error('Error retrieving posts:', error);
+        res.status(500).send('Error retrieving posts');
       }
     });
 
@@ -214,25 +183,28 @@ mongoose.connect(MONGODB_URI, {
       }
     });
 
-    // Rota para criar um novo post
-    app.get('/create-post', (req, res) => {
-      res.render('create-post');
-    });
-    
-    app.post('/create-post', async (req, res) => {
-      try {
-        const { location, description, image } = req.body;
-        const post = new Trip({ location, description, image });
-    
-        await post.save();
-        res.redirect('/admin');
-      } catch (error) {
-        console.error('Error creating post:', error);
-        res.status(500).send('Error creating post');
-      }
-    });
-    
-    
+
+
+// Rota para criar um novo post
+app.get('/new-post', (req, res) => {
+  res.render('new-post');
+});
+
+app.post('/new-post', async (req, res) => {
+  try {
+    const { location, description, comment, image } = req.body;
+    const post = new Post ({ location, description,  comment, image });
+
+    await post.save();
+    res.redirect('/posts');
+  } catch (error) {
+    console.error('Error creating post:', error);
+    res.status(500).send('Error creating post');
+  }
+});
+
+
+
     // Iniciar o servidor
     app.listen(3000, () => {
       console.log('Server started on port 3000');
