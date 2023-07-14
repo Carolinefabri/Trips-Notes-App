@@ -17,15 +17,14 @@ router.get("/create", (req, res) => {
 });
 
 router.post("/create", uploader.single("image"), async (req, res) => {
-  const { location, title, startDate } = req.body; 
-  const payload = { location, title, startDate } ;
+  const { location, title, comment } = req.body;
+  const payload = { location, title, comment };
   if (req.file) {
-   payload.image = req.file.path;
-  };
- 
+    payload.image = req.file.path;
+  }
 
   try {
-    const newPost = await Post.create(payload)
+    const newPost = await Post.create(payload);
     res.redirect("/posts");
   } catch (error) {
     console.error("Error creating post:", error);
@@ -34,5 +33,59 @@ router.post("/create", uploader.single("image"), async (req, res) => {
     });
   }
 });
+
+router.post("/:postId/delete", async (req, res) => {
+  const postId = req.params.postId;
+
+  try {
+    const deletedPost = await Post.findByIdAndDelete(postId);
+
+    if (deletedPost.image) {
+      // Lógica para excluir a imagem do Cloudinary
+      // ...
+    }
+
+    res.redirect("/posts");
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    res.redirect("/posts");
+  }
+});
+
+router.get("/:postId/update", async (req, res) => {
+  const postId = req.params.postId;
+
+  try {
+    const post = await Post.findById(postId);
+    res.render("update", { post });
+  } catch (error) {
+    console.error("Error retrieving post for update:", error);
+    res.redirect("/posts");
+  }
+});
+router.post("/:postId/update", uploader.single("image"), async (req, res) => {
+  const postId = req.params.postId;
+  const { title, comment, location } = req.body;
+  const payload = { title, comment, location };
+
+  if (req.file) {
+    payload.image = req.file.path;
+console.log(req.file.path)
+    const previousPost = await Post.findById(postId);
+    if (previousPost.image) {
+      // Lógica para excluir a imagem anterior do Cloudinary
+      // ...
+    }
+  }
+
+  try {
+    await Post.findByIdAndUpdate(postId, payload);
+    res.redirect("/posts");
+  } catch (error) {
+    console.error("Error updating post:", error);
+    res.redirect("/posts");
+  }
+});
+
 
 module.exports = router;
