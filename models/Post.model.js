@@ -6,27 +6,24 @@ const tripSchema = new Schema({
     type: String,
     
   },
-  endDate: {
-    type: Date,
-    
-  },
-  startDate: {
-    type: Date,
-    
-  },
   title: {
     type: String,
  
   },
+ 
+  comment: {
+    type: String,
+    
+  },
+  
   image: {
     type: String,
   
   }
 });
 
-const Trip = model('Trip', tripSchema);
+const Post = model('Post', tripSchema);
 
-const Trip = model('Trip', tripSchema);
 
-module.exports = Trip
+module.exports = Post
 
