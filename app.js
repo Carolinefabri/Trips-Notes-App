@@ -4,10 +4,13 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 multer = require('multer');
 path = require('path')
+multer = require('multer');
+path = require('path')
 const User = require('./models/user');
 const Trip = require('./models/trip');
 const bcrypt = require('bcrypt');
 const postRoutes = require('./routes/create-post');
+
 
 
 const app = express();
@@ -21,6 +24,8 @@ app.use(express.json());
 app.use('/posts', postRoutes);
 
 
+
+app.use('/posts', postRoutes);
 
 
 // Conectar ao banco de dados
@@ -41,12 +46,6 @@ mongoose.connect(MONGODB_URI, {
 
       return false; // Autenticação falhou
     };
-
-
-const imageStorage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, 'public/images'),
-  filename: (req, file, cb) => cb(null, file.originalname)
-})
 
     app.use(session({
       secret: 'seu_secreto_aqui',
@@ -119,6 +118,37 @@ const imageStorage = multer.diskStorage({
       }
     });
 
+
+    // Rota de autenticação (página de login)
+    app.post('/signin', async (req, res) => {
+      const { email, password } = req.body;
+
+      try {
+        // Verifique a autenticidade do usuário consultando o banco de dados
+        const user = await User.findOne({ email });
+
+        if (user) {
+          // Verifique se a senha fornecida corresponde à senha armazenada no banco de dados
+          const isPasswordValid = await user.comparePassword(password);
+
+          if (isPasswordValid) {
+            // Autenticação bem-sucedida
+            req.session.userId = user._id; // Armazene o ID do usuário na sessão
+            res.redirect('/admin'); // Redirecione para a página de administração
+          } else {
+            // Senha incorreta
+            res.render('signin', { errorMsg: 'Email or password is incorrect' });
+          }
+        } else {
+          // Usuário não encontrado
+          res.render('signin', { errorMsg: 'Email or password is incorrect' });
+        }
+      } catch (error) {
+        console.error('Error authenticating user:', error);
+        res.status(500).send('Error authenticating user');
+      }
+    });
+
     // Middleware de autenticação
     const requireAuth = (req, res, next) => {
       if (req.session.userId) {
@@ -135,7 +165,18 @@ const imageStorage = multer.diskStorage({
       try {
         // Obtenha os posts (trips) do banco de dados ou de outra fonte de dados
         const trips = await Trip.find();
+    app.get('/admin', requireAuth, async (req, res) => {
+      try {
+        // Obtenha os posts (trips) do banco de dados ou de outra fonte de dados
+        const trips = await Trip.find();
 
+        // Renderize a página de administração e passe os dados das trips como variável
+        res.render('admin', { trips });
+      } catch (error) {
+        console.error('Error retrieving trips:', error);
+        res.status(500).send('Error retrieving trips');
+      }
+    });
         // Renderize a página de administração e passe os dados das trips como variável
         res.render('admin', { trips });
       } catch (error) {
@@ -168,44 +209,16 @@ const imageStorage = multer.diskStorage({
       }
     });
 
-    // Rota para exibir todas as viagens
-    app.get('/trips', async (req, res) => {
-      try {
-        const trips = await Trip.find();
-        res.render('trips', { trips });
-      } catch (error) {
-        console.error('Error retrieving trips:', error);
-        res.status(500).send('Error retrieving trips');
-      }
-    });
-
-    // Rota para criar uma nova viagem
-    app.post('/trips', async (req, res) => {
-      try {
-        const { destination, date, comment, image } = req.body;
-        const trip = new Trip({ destination, date, comment, image });
-        await trip.save();
-        res.redirect('/trips');
-      } catch (error) {
-        console.error('Error creating trip:', error);
-        res.status(500).send('Error creating trip');
-      }
-    });
-
-    
-   
-
-   
-
     // Rota para criar um novo post
     app.get('/create-post', (req, res) => {
       res.render('create-post');
     });
-
+    
     app.post('/create-post', async (req, res) => {
       try {
-        const { local, description, image, } = req.body;
-        const post = new Trip({ local, description, image, });
+        const { location, description, image } = req.body;
+        const post = new Trip({ location, description, image });
+    
         await post.save();
         res.redirect('/admin');
       } catch (error) {
@@ -213,7 +226,8 @@ const imageStorage = multer.diskStorage({
         res.status(500).send('Error creating post');
       }
     });
-
+    
+    
     // Iniciar o servidor
     app.listen(3000, () => {
       console.log('Server started on port 3000');

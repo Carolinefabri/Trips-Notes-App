@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const Trip = require('../models/trip');
 const { requireAuth } = require('../middleware/authMiddleware');
 
 
 // Rota para criar um novo post
 
 router.get('/trip/create', (req, res) => res.render('trip/create'));
-
-
 
 
 router.post('/create-post', requireAuth, async (req, res) => {
