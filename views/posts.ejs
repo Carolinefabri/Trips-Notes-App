@@ -1,9 +1,15 @@
 <h2>All Posts</h2>
 <div>
   <% posts.forEach(post => { %>
-  <h3><%- post.title %></h3>
-  <h4><%- post.location %></h4>
-  <h3><%- post.comment %></h3>
-  <img src=<%- post.image %> alt="image" style="width: 300px; height: 200px;">
+  <div>
+    <h3><%- post.title %></h3>
+    <h4><%- post.location %></h4>
+    <p><%- post.comment %></p>
+    <img src="<%- post.image %>" alt="image" style="width: 300px; height: 200px;">
+    <a href="/posts/<%- post._id %>/update">Update</a>
+    <form action="/posts/<%- post._id %>/delete" method="POST">
+      <button type="submit">Delete</button>
+    </form>
+  </div>
   <% }) %>
 </div>
