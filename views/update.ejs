@@ -1,0 +1,16 @@
+<h1>Update Post</h1>
+
+<form method="POST" action="/posts/<%-post._id%>/update" style="display: flex; flex-direction: column; align-items: center;"  enctype="multipart/form-data">
+  <label>Title : <input name="title" value="<%= post.title %>"></label>
+
+  <label>Comment about your travel:
+    <textarea name="comment"><%= post.comment %></textarea>
+  </label>
+  </label>
+
+  <label>Location: <input name="location" value="<%= post.location %>"></label>
+  <label>Photo : <input type="file" name="image" value="<%= post.image %>"></label>
+
+
+  <button type="submit">Update Post</button>
+</form>
