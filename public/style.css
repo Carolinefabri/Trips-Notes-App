@@ -10,6 +10,8 @@
 
 body {
   background: #1B2029;
+  background-image: url("./images/4.svg"); 
+  background-size: cover;
   color: white;
   font-weight: 500;
   display: flex;
@@ -18,64 +20,57 @@ body {
 }
 
 
-
-
 /*  pagina home */
-
 .home {
-    display: flex;
+      display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 50px; /* Adicione um espaçamento superior desejado */
+    flex-direction: column;
+    height: 100vh; /* Ajuste a altura desejada */
   }
   
   .image-container {
-    background-image: url("./images/1.svg");
+    background-image: url("./images/5.svg");
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
+    position:absolute;
+    top: 0%;
+    left: 00%;
     z-index: -1;
   }
   
-
-ul {
-  list-style-type: none;
-}
-
-.btn {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 10px 20px;
-  background-color: #6C63FF;
-  color: white;
-  text-decoration: none;
-  border-radius: 32px;
-  transition: all .3s ease-in-out;
-  margin-right: 10px;
-}
-
-
-ul {
-  list-style-type: none;
-}
-
-.btn {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 10px 20px;
-  background-color: #6C63FF;
-  color: white;
-  text-decoration: none;
-  border-radius: 32px;
-  transition: all .3s ease-in-out;
-  margin-right: 10px;
-}
-
+  ul {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .btn {
+    display: flex;
+    margin-top: 1rem;
+    padding: 10px 20px;
+    background-color: #6C63FF;
+    color: white;
+    text-decoration: none;
+    border-radius: 32px;
+    transition: all .3s ease-in-out;
+    margin-right: 10px;
+     }
+  
+  .btn-register {
+    align-self: center; /* Centraliza o botão de Register */
+  }
+  
+  .btn-signin,
+  .btn-aboutus {
+    align-self: flex-end; /* Posiciona os botões de Sign In e About Us no lado direito */
+  }
+  
+  
 /*  pagina signin */
 
 .container {
@@ -125,6 +120,31 @@ header h1 {
   }
   
 /*  pagina register */
+.button-home {
+    position: fixed;
+    top: 70%;
+    left: 78%;
+    cursor: pointer;
+    width: 11%;
+    height: 7%;
+    margin-top: 1rem;
+    border: none;
+    border-radius: 32px;
+    background: #6C63FF;
+    color: white;
+    font-size: 1.1rem;
+    transition: all .3s ease-in-out;
+    outline: none;
+    text-decoration: none;
+    text-align: center;
+  }
+  
+  .button-home:hover {
+    background: #5952d4;
+  }
+  
+  
+
 
 main {
     width: 50vw;
@@ -136,8 +156,8 @@ main {
 
 main h1 {
     color: #8880FE;
-    font-size: 3rem;
-    margin-bottom: 3rem;
+    font-size: 2rem;
+    margin-bottom: 2rem;
     text-align: center;
 }
 
@@ -205,7 +225,7 @@ main form input {
     width: 300px;
     height: 50px;
     padding: 0 0.5rem;
-    margin-top: 1rem;
+    margin-top: 0rem;
     outline: none;
     color: rgba(166, 166, 166);
     font-size: 1rem;
@@ -216,7 +236,7 @@ main form input {
 main form input[type="submit"] {
     cursor: pointer;
     width: 50%;
-    margin-top: 4rem;
+    margin-top: 1rem;
     border: none;
     border-radius: 32px;
     background: #6C63FF;
@@ -234,11 +254,12 @@ section.images {
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
-    padding: 4rem;
+    padding: 4rem 2rem 4rem 8rem; 
 }
 
 section.images img {
-    width: 100%;
+    width: 190%;
+ 
 }
 
 section.images .circle {
