@@ -11,7 +11,6 @@ const Trip = require('./models/trip');
 const bcrypt = require('bcrypt');
 const postRoutes = require('./routes/create-post');
 
-const postRoutes = require('./routes/create-post');
 
 
 const app = express();
@@ -27,8 +26,6 @@ app.use('/posts', postRoutes);
 
 
 app.use('/posts', postRoutes);
-
-
 
 
 // Conectar ao banco de dados
@@ -49,18 +46,6 @@ mongoose.connect(MONGODB_URI, {
 
       return false; // Autenticação falhou
     };
-
-
-const imageStorage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, 'public/images'),
-  filename: (req, file, cb) => cb(null, file.originalname)
-})
-
-
-const imageStorage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, 'public/images'),
-  filename: (req, file, cb) => cb(null, file.originalname)
-})
 
     app.use(session({
       secret: 'seu_secreto_aqui',
@@ -242,9 +227,6 @@ const imageStorage = multer.diskStorage({
       }
     });
     
-    
-    
-
     
     // Iniciar o servidor
     app.listen(3000, () => {
