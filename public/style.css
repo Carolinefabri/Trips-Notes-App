@@ -310,7 +310,132 @@ section.images .circle {
 
 /*  adm page */
 
-p {
-text-align: center;
+:root {
+      --menu-color: #636FA4;
+    --secondary-color: #636FA4;
+    --circle1-color: #636FA4;
+    --circle2-color: #636FA4;
+    --circle3-color: #636FA4;
+}
+nav {
+  display: flex;
+  padding: 2rem 3rem;
+  align-items: flex-start; /* Alinha os itens no topo */
+  margin-bottom: 5rem;
+}
 
+nav .menu {
+  display: flex;
+  justify-content: flex-end; /* Alinha os itens à direita */
+  padding: 2rem 3rem;
+}
+
+nav .menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav .menu ul li {
+  display: inline-block;
+  margin-right: 10px; /* Espaço de 10px entre os botões */
+}
+nav .menu ul a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #6C63FF;
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 32px;
+    transition: background-color 0.3s ease-in-out;
+    opacity: 0.2; /* Opacidade de 80% */
+  }
+  
+  nav .menu ul a:hover {
+    background-color: #5952d4;
+    opacity: 2; /* Opacidade total ao passar o mouse */
+  }
+  
+
+
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5rem 10rem;
+}
+
+section.text {
+  text-align: justify;
+  margin-top: 5rem;
+  margin-right: 45rem; /* Ajuste o valor de acordo com a posição desejada */
+}
+
+
+section.text h1 {
+  color: #636FA4;
+  font-size: 3.5rem;
+  max-width: 300px;
+  margin-bottom: 3rem;
+}
+
+section.text span {
+font-size: 1.4rem; /* Ajuste o valor para o tamanho desejado */
+color: var(--secondary-color);
+  display: inline-block;
+  max-width: 380px;
+  line-height: 2rem;
+}
+
+section.image {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+section.image img {
+  width: 750px;
+  transition: all 0.3s ease-in-out;
+   margin-top: -10rem; /* Ajuste o valor conforme necessário para mover a imagem para cima */
+    margin-right: 10rem; /* Ajuste o valor conforme necessário para mover a imagem para a direita */
+}
+
+section.image img:hover {
+  transform: translateY(-35px);
+}
+
+.circle-1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--circle1-color);
+    clip-path: circle(600px at 100% 100px);
+    z-index: -1;
+}
+
+.circle-2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--circle2-color);
+    clip-path: circle(300px at center 900px);
+    z-index: -1;
+}
+
+.circle-3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--circle3-color);
+    clip-path: circle(150px at 50px 300px);
+    z-index: -1;
 }
