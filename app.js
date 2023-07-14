@@ -88,6 +88,11 @@ mongoose.connect(MONGODB_URI, {
       res.render('signin');
     });
 
+    app.get('/home', (req, res) => {
+      // Lógica para renderizar a página home aqui
+      res.render('home'); // Substitua "home" pelo nome correto do arquivo da página home
+    });
+    
     // Rota de autenticação (página de login)
     app.post('/signin', async (req, res) => {
       const { email, password } = req.body;
