@@ -8,50 +8,47 @@
   font-family: "Poppins", sans-serif;
 }
 
-body {
-  background: #1B2029;
-  background-image: url("./images/4.svg"); 
-  background-size: cover;
-  color: white;
-  font-weight: 500;
-  display: flex;
-  min-height: 50vh;
-  min-width: 50vw;
-}
 
+body {
+    background: #1B2029;
+    background-image: url("./images/4.svg");
+    background-size: cover;
+    color: white;
+    font-weight: 500;
+    display: flex;
+  }
 
 /*  pagina home */
+
 .home {
-      display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 100vh; /* Ajuste a altura desejada */
-  }
-  
-  .image-container {
-    background-image: url("./images/5.svg");
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 100%;
-    position:absolute;
-    top: 0%;
-    left: 00%;
-    z-index: -1;
-  }
-  
-  ul {
-    list-style-type: none;
     display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
+  justify-content: center;
+  align-items:flex-start;
+  flex-direction: row;
+  height: 100vh; /* Ajuste a altura desejada */
+}
+
+.image-home {
+  background-image: url("./images/5.svg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  position:absolute;
+  top: 0%;
+  left: 00%;
+  z-index: 1;
+}
+  .custom {
+    margin-top: 32rem;
+    margin-right: 15px;
   }
   
-  .btn {
-    display: flex;
-    margin-top: 1rem;
+  .btn-aboutus,
+  .btn-signin,
+  .btn-register {
+    display: inline-block;
     padding: 10px 20px;
     background-color: #6C63FF;
     color: white;
@@ -59,18 +56,17 @@ body {
     border-radius: 32px;
     transition: all .3s ease-in-out;
     margin-right: 10px;
-     }
-  
-  .btn-register {
-    align-self: center; /* Centraliza o botão de Register */
+    opacity: 0.2; /* Opacidade de 80% */
   }
   
-  .btn-signin,
-  .btn-aboutus {
-    align-self: flex-end; /* Posiciona os botões de Sign In e About Us no lado direito */
+  .btn-aboutus:hover,
+  .btn-signin:hover,
+  .btn-register:hover {
+    background-color: #5952d4;
+    cursor: pointer;
+    opacity: 2; /* Opacidade total ao passar o mouse */
   }
-  
-  
+
 /*  pagina signin */
 
 .container {
@@ -80,6 +76,7 @@ body {
     align-items: center;
     justify-content: center;
 }
+
 header h1 {
     color: #8880FE;
     font-size: 3rem;
@@ -94,32 +91,30 @@ header h1 {
 }
 
 .button-container {
-    display: flex;
+    margin-top: 0rem;
+    margin-right: 0px;
+    display: inline-block;
+    padding: 10px 20px;
   }
   
   .button-container .button {
-    display: inline-block;
-    margin-top: 4rem;
-    padding: 10px 20px;
+
     background-color: #6C63FF;
     color: white;
     text-decoration: none;
     border-radius: 32px;
     transition: all .3s ease-in-out;
     margin-right: 10px;
+  }
 
-  }
-  
-  .button-container .button:last-child {
-    margin-right: 0;
-  }
-  
   .button-container .button:hover {
     background-color: #5952d4;
     cursor: pointer;
   }
   
+  
 /*  pagina register */
+
 .button-home {
     position: fixed;
     top: 70%;
@@ -144,7 +139,6 @@ header h1 {
   }
   
   
-
 
 main {
     width: 50vw;
@@ -273,6 +267,140 @@ section.images .circle {
     z-index: -1;
 }
 
+/*  adm page */
+
+:root {
+      --menu-color: #636FA4;
+    --secondary-color: #636FA4;
+    --circle1-color: #636FA4;
+    --circle2-color: #636FA4;
+    --circle3-color: #636FA4;
+}
+nav {
+  display: flex;
+  padding: 2rem 3rem;
+  align-items: flex-start; /* Alinha os itens no topo */
+  margin-bottom: 5rem;
+}
+
+nav .menu {
+  display: flex;
+  justify-content: flex-end; /* Alinha os itens à direita */
+  padding: 2rem 3rem;
+}
+
+nav .menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav .menu ul li {
+  display: inline-block;
+  margin-right: 10px; /* Espaço de 10px entre os botões */
+}
+nav .menu ul a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #6C63FF;
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 32px;
+    transition: background-color 0.3s ease-in-out;
+    opacity: 0.2; /* Opacidade de 80% */
+  }
+  
+  nav .menu ul a:hover {
+    background-color: #5952d4;
+    opacity: 2; /* Opacidade total ao passar o mouse */
+  }
+  
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5rem 10rem;
+}
+
+section.text {
+  text-align: justify;
+  margin-top: 5rem;
+  margin-right: 45rem; /* Ajuste o valor de acordo com a posição desejada */
+}
+
+
+section.text h1 {
+  color: #636FA4;
+  font-size: 3.5rem;
+  max-width: 300px;
+  margin-bottom: 3rem;
+}
+
+section.text span {
+font-size: 1.4rem; /* Ajuste o valor para o tamanho desejado */
+color: var(--secondary-color);
+  display: inline-block;
+  max-width: 380px;
+  line-height: 2rem;
+}
+
+section.image {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+section.image img {
+  width: 750px;
+  transition: all 0.3s ease-in-out;
+   margin-top:0rem; /* Ajuste o valor conforme necessário para mover a imagem para cima */
+    margin-right:70em; /* Ajuste o valor conforme necessário para mover a imagem para a direita */
+}
+
+section.image img:hover {
+  transform: translateY(-35px);
+}
+
+.circle-1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--circle1-color);
+    clip-path: circle(600px at 100% 100px);
+    z-index: -1;
+}
+
+.circle-2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--circle2-color);
+    clip-path: circle(300px at center 900px);
+    z-index: -1;
+}
+
+.circle-3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--circle3-color);
+    clip-path: circle(150px at 50px 300px);
+    z-index: -1;
+}
+
+
+
+
+
 @media only screen and (min-width: 900px) and (max-width: 1200px) {
     section.images img {
         width: 110%;
@@ -298,21 +426,6 @@ section.images .circle {
     main h1 {
         font-size: 2rem;
     }
-
-    main .alternative span {
-        font-size: 0.8rem;
-    }
-
-    main form label span, main form input[type="submit"] {
-        font-size: 1rem;
-    }
-}
-
-/*  adm page */
-
-p {
-text-align: center;
-
 }
 
 
