@@ -546,3 +546,16 @@ section.image img:hover {
         font-size: 2rem;
     }
 }
+
+
+/* Imagem do sing in */
+
+.imageslogin {
+    position:relative;
+    top: 50px;
+    right: 30%;
+    width: 200px;
+    height: 200px;
+   
+}
+

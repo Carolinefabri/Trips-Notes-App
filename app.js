@@ -1,3 +1,4 @@
+
 require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
@@ -153,19 +154,23 @@ app.use('/posts', postRoutes);
       }
     };
 
-    // Rota da página de administração
     app.get('/admin', requireAuth, async (req, res) => {
       try {
-        // Obtenha os posts (trips) do banco de dados ou de outra fonte de dados
-        const posts = await Post.find();
-
-        // Renderize a página de administração e passe os dados das trips como variável
-        res.render('admin', { posts });
+        // Lógica para obter o nome do usuário a partir do ID armazenado na sessão
+        const userId = req.session.userId;
+        const user = await User.findById(userId);
+        const username = user.username;
+    
+        // Renderize a página de administração e passe o nome do usuário como variável
+        res.render('admin', { username });
       } catch (error) {
-        console.error('Error retrieving posts:', error);
-        res.status(500).send('Error retrieving posts');
+        console.error('Error retrieving user:', error);
+        res.status(500).send('Error retrieving user');
       }
     });
+
+
+   
 
     // Rota para exibir todos os usuários
     app.get('/users', async (req, res) => {
