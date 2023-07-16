@@ -80,7 +80,6 @@ body {
 header h1 {
     color: #8880FE;
     font-size: 3rem;
-    margin-bottom: 3rem;
     text-align: center;
 }
 
@@ -90,27 +89,55 @@ header h1 {
   margin-bottom: 1rem;
 }
 
-.button-container {
-    margin-top: 0rem;
-    margin-right: 0px;
-    display: inline-block;
-    padding: 10px 20px;
-  }
+#button-sigin {
+cursor: pointer;
+width:100px;
+height: 40px;
+margin-top: 2rem;
+border: none;
+border-radius: 32px;
+background: #6C63FF;
+color: white;
+font-size: 1.1rem;
+transition: all .3s ease-in-out;
+}
+
+#button-sigin:hover {
+  background-color: #5952d4;
+  cursor: pointer;
+  opacity: 2; /* Opacidade total ao passar o mouse */
+}
   
-  .button-container .button {
 
-    background-color: #6C63FF;
-    color: white;
-    text-decoration: none;
-    border-radius: 32px;
-    transition: all .3s ease-in-out;
-    margin-right: 10px;
-  }
 
-  .button-container .button:hover {
-    background-color: #5952d4;
-    cursor: pointer;
-  }
+ 
+.button-homepage-signin{
+
+  position: fixed;
+  top: 3%;
+  left: 80%;
+  cursor: pointer;
+  width: 11%;
+  height: 7%;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 32px;
+  background: #6C63FF;
+  color: white;
+  font-size: 1.1rem;
+  transition: all .3s ease-in-out;
+  outline: none;
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.3s ease-in-out;
+  opacity: 0.2; /* Opacidade de 80% */
+}
+
+.button-homepage-signin:hover {
+  background-color: #5952d4;
+  cursor: pointer;
+  opacity: 2; /* Opacidade total ao passar o mouse */
+}
   
   
 /*  pagina register */
@@ -138,8 +165,6 @@ header h1 {
     background: #5952d4;
   }
   
-  
-
 main {
     width: 50vw;
     display: flex;
@@ -299,6 +324,7 @@ nav .menu ul li {
   display: inline-block;
   margin-right: 10px; /* Espaço de 10px entre os botões */
 }
+
 nav .menu ul a {
     display: inline-block;
     padding: 10px 20px;
@@ -318,43 +344,49 @@ nav .menu ul a {
   }
   
 
-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 3rem 10rem;
+  main {
+    display: flex;
+    padding: 3rem 10rem;
+    overflow: visible;
 }
 
 section.text {
-  text-align: justify;
-  margin-top: 5rem;
+  text-align:justify;
+  margin-top: 6rem;
   margin-right: 45rem; /* Ajuste o valor de acordo com a posição desejada */
 }
 
-
 section.text h1 {
-  color: #636FA4;
-  font-size: 3.5rem;
+  color: #bfc9f7;
+  font-size: 3rem;
   max-width: 300px;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
 }
 
-section.text span {
-font-size: 1.4rem; /* Ajuste o valor para o tamanho desejado */
-color: var(--secondary-color);
-  display: inline-block;
+p {
+  color: #8a9be6;
+  font-size: 1.2rem;
   max-width: 380px;
-  line-height: 2rem;
+  margin-bottom: 2rem;
+}
+
+
+section.text span {
+font-size: 1rem; /* Ajuste o valor para o tamanho desejado */
+color: #8a9be6;
+display: inline-block;
+  max-width: 380px;
+  line-height: 1.6rem;
 }
 
 section.image {
   display: flex;
   justify-content: center;
-  margin-top: 3rem;
+  margin-top: 1rem;
 }
 
 section.image img {
-  width: 750px;
+  width: 600px;
   transition: all 0.3s ease-in-out;
    margin-top: -10rem; /* Ajuste o valor conforme necessário para mover a imagem para cima */
     margin-right:15em; /* Ajuste o valor conforme necessário para mover a imagem para a direita */
@@ -467,49 +499,101 @@ section.image img:hover {
 
 /*  pagina aboutus */
 
+.aboutusfoto {
+ width: 200px;
+ height: 200px;
+transition: all 0.3s ease-in-out;
+ margin-top: 5rem; /* Ajuste o valor conforme necessário para mover a imagem para cima */
+  margin-right:15em; /* Ajuste o valor conforme necessário para mover a imagem para a direita */
+  margin-left: 40rem;
+}
 .aboutus-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    text-align: center;
-  }
-  
-  .aboutus-title {
-    color: #8880FE;
-    font-size: 2rem;
-    margin-bottom: 2rem;
-  }
-  
-  
-  .aboutus-description {
-    color: white;
-  }
- 
-  
-  .homepage-ton,
-  .aboutus-ton,
-  .signin-ton {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #6C63FF;
-    color: white;
-    text-decoration: none;
-    border-radius: 32px;
-    transition: all .3s ease-in-out;
-    margin-right: 10px;
-   
-  }
-  
-  
-  .aboutus-button a:hover {
-    background-color: #5952d4;
-    cursor: pointer;
-  }
-  
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+}
 
+.aboutus-title {
+  color: #8880FE;
+  font-size: 3rem;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  margin-left: 20rem;
+}
+
+.aboutus-description {
+  color: #7158C4;
+  font-size: 1.2rem;
+  margin-left: 20rem;
+
+}
+
+.homepage-ton,
+.aboutus-ton,
+.signin-ton {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #6C63FF;
+  color: white;
+  text-decoration: none;
+  border-radius: 32px;
+  transition: all .3s ease-in-out;
+  margin-top: 3rem;
+  margin-left: 4rem;
+  margin-right: 2rem;
+  opacity: 0.4; /* Opacidade de 80% */
+}
+
+.aboutus-button a:hover {
+  background-color: #5952d4;
+  cursor: pointer;
+  opacity: 2; /* Opacidade total ao passar o mouse */
+}
+
+  
+ 
+
+.aboutus-title {
+  color: #8880FE;
+  font-size: 3rem;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  margin-left: 20rem;
+}
+
+.aboutus-description {
+  color: #7158C4;
+  font-size: 1.2rem;
+  margin-left: 20rem;
+
+}
+
+.homepage-ton,
+.aboutus-ton,
+.signin-ton {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #6C63FF;
+  color: white;
+  text-decoration: none;
+  border-radius: 32px;
+  transition: all .3s ease-in-out;
+  margin-top: 3rem;
+  margin-left: 4rem;
+  margin-right: 2rem;
+  opacity: 0.4; /* Opacidade de 80% */
+}
+
+.aboutus-button a:hover {
+  background-color: #5952d4;
+  cursor: pointer;
+  opacity: 2; /* Opacidade total ao passar o mouse */
+}
+
+  
 
 @media only screen and (min-width: 900px) and (max-width: 1200px) {
     section.images img {
