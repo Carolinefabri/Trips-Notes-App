@@ -322,7 +322,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 5rem 10rem;
+  padding: 3rem 10rem;
 }
 
 section.text {
@@ -356,8 +356,8 @@ section.image {
 section.image img {
   width: 750px;
   transition: all 0.3s ease-in-out;
-   margin-top:0rem; /* Ajuste o valor conforme necessário para mover a imagem para cima */
-    margin-right:70em; /* Ajuste o valor conforme necessário para mover a imagem para a direita */
+   margin-top: -10rem; /* Ajuste o valor conforme necessário para mover a imagem para cima */
+    margin-right:15em; /* Ajuste o valor conforme necessário para mover a imagem para a direita */
 }
 
 section.image img:hover {
@@ -396,6 +396,125 @@ section.image img:hover {
     clip-path: circle(150px at 50px 300px);
     z-index: -1;
 }
+
+/*  pagina New Post */
+
+.button-newpost {
+    position: fixed;
+    top: 0%;
+    left: 78%;
+    cursor: pointer;
+    width: 11%;
+    height: 7%;
+    margin-top: 1rem;
+    border: none;
+    border-radius: 32px;
+    background: #6C63FF;
+    color: white;
+    font-size: 1.1rem;
+    transition: all .3s ease-in-out;
+    outline: none;
+    text-decoration: none;
+    text-align: center;
+    opacity: 0.4; /* Opacidade de 80% */
+  }
+  
+  .button-newpost:hover {
+    background: #5952d4;
+    opacity: 2; /* Opacidade total ao passar o mouse */
+  }
+
+.button-alltravelpgraphy {
+  position: fixed;
+  top: 0%;
+  left: 63%;
+  cursor: pointer;
+  width: 13%;
+  height: 7%;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 32px;
+  background: #6C63FF;
+  color: white;
+  font-size: 1.1rem;
+  transition: all .3s ease-in-out;
+  outline: none;
+  text-decoration: none;
+  text-align: center;
+  opacity: 0.4; /* Opacidade de 80% */
+}
+
+
+  .button-alltravelpgraphy:hover {
+    background: #5952d4;
+    opacity: 2; /* Opacidade total ao passar o mouse */
+  }
+  
+/*  pagina ALL post */
+
+.photo-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 50px;
+  }
+  
+  .photo-grid img {
+    width: 50%;
+    margin-bottom: 20px;
+  }
+
+
+/*  pagina aboutus */
+
+.aboutus-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+  }
+  
+  .aboutus-title {
+    color: #8880FE;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  
+  .aboutus-description {
+    color: white;
+  }
+ 
+  
+  .homepage-ton,
+  .aboutus-ton,
+  .signin-ton {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #6C63FF;
+    color: white;
+    text-decoration: none;
+    border-radius: 32px;
+    transition: all .3s ease-in-out;
+    margin-right: 10px;
+   
+  }
+  
+  
+  .aboutus-button a:hover {
+    background-color: #5952d4;
+    cursor: pointer;
+  }
+  
+  
+  
+
+
+
+
+
 
 
 
