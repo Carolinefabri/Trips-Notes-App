@@ -509,15 +509,6 @@ section.image img:hover {
   }
   
   
-  
-
-
-
-
-
-
-
-
 
 
 @media only screen and (min-width: 900px) and (max-width: 1200px) {
@@ -546,3 +537,74 @@ section.image img:hover {
         font-size: 2rem;
     }
 }
+
+
+
+
+  /* posts photos */
+
+/* posts photos */
+
+
+  /* posts photos */
+
+.photo-album {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .photo-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 400px; /* Defina a altura desejada */
+  }
+  
+  .photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  
+  
+  /* button delet and uptade */
+
+  
+  .buttonDU {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #6C63FF;
+    color: white;
+    text-decoration: none;
+    border-radius: 32px;
+    transition: all .3s ease-in-out;
+    margin-right: 10px;
+  }
+  
+  .buttonDU:hover {
+    background-color: #5952d4;
+    cursor: pointer;
+  }
+  
+  .buttonDE {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #6C63FF;
+    color: white;
+    text-decoration: none;
+    border-radius: 32px;
+    transition: all .3s ease-in-out;
+    margin-right: 10px;
+  }
+  
+  .buttonDE:hover {
+    background-color: #5952d4;
+    cursor: pointer;
+  }
+  
+  .button-container1 {
+    display: flex;
+    align-items: center;
+  }

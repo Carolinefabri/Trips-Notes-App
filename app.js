@@ -154,6 +154,8 @@ app.use('/posts', postRoutes);
       }
     };
 
+ 
+
     app.get('/admin', requireAuth, async (req, res) => {
       try {
         // Lógica para obter o nome do usuário a partir do ID armazenado na sessão
@@ -170,7 +172,18 @@ app.use('/posts', postRoutes);
     });
 
 
-   
+   // Rota de logout
+app.get('/logout', (req, res) => {
+  req.session.destroy((error) => {
+    if (error) {
+      console.error('Error logging out:', error);
+      res.status(500).send('Error logging out');
+    } else {
+      res.redirect('/signin'); // Redirecione para a página de login após o logout
+    }
+  });
+});
+
 
     // Rota para exibir todos os usuários
     app.get('/users', async (req, res) => {
@@ -196,6 +209,34 @@ app.use('/posts', postRoutes);
       }
     });
 
+// Middleware para definir a variável currentUser
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user || null;
+  next();
+});
+
+// Rota para a página "posts.ejs"
+app.get('/posts', (req, res) => {
+  // Verifique se o usuário está autenticado
+  if (req.isAuthenticated()) {
+    const userId = req.user.id; // Obtenha o ID do usuário autenticado
+
+    // Recupere os posts do usuário autenticado com base no ID no banco de dados
+    Post.find({ userId: userId })
+      .then(posts => {
+        // Renderize a página "posts.ejs" e passe os posts e a variável currentUser
+        res.render('posts', { posts: posts, currentUser: req.user });
+      })
+      .catch(err => {
+        // Lida com erros, se houver
+      });
+  } else {
+    // O usuário não está autenticado, redirecione-o para a página de login ou exiba uma mensagem de erro
+    res.redirect('/login'); // ou res.render('error', { message: 'Faça login para acessar os posts.' });
+  }
+});
+
+
 
 
 // Rota para criar um novo post
@@ -215,6 +256,10 @@ app.post('/new-post', async (req, res) => {
     res.status(500).send('Error creating post');
   }
 });
+
+
+
+
 
 
 

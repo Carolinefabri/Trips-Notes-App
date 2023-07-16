@@ -5,7 +5,7 @@ const uploader = require("../middleware/cloudinary.config");
 router.get("/", async (req, res) => {
   try {
     const posts = await Post.find();
-    res.render("posts", { posts });
+    res.render("posts", { posts, currentUser: req.user });
   } catch (error) {
     console.error("Error retrieving posts:", error);
     res.status(500).send("Error retrieving posts");
