@@ -1,15 +1,36 @@
-<h2>All Posts</h2>
-<div>
+<!DOCTYPE html>
+<html lang="en" accept-language="en">
+<head>
+  <title>Travelgraphy - Sign In</title>
+  <link rel="icon" href="/images/logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+ <header>
+    <h1> 
+     ALL Travelgraphy
+    </h1>
+
+ 
+<div class="photo-item">
   <% posts.forEach(post => { %>
   <div>
     <h3><%- post.title %></h3>
     <h4><%- post.location %></h4>
     <p><%- post.comment %></p>
-    <img src="<%- post.image %>" alt="image" style="width: 300px; height: 200px;">
-    <a href="/posts/<%- post._id %>/update">Update</a>
+    <img src="<%- post.image %>" alt="image">
+    <a href="/posts/<%- post._id %>/update" class="button-update">Update</a>
     <form action="/posts/<%- post._id %>/delete" method="POST">
-      <button type="submit">Delete</button>
+      <button type="submit" class="button-delete">Delete</button>
     </form>
   </div>
   <% }) %>
 </div>
+
+<a href="/new-post" class="button-newpost">New Post</a>
+<header>
+</body>
+</html>
+
+
