@@ -5,6 +5,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+
+
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+
+
   "keywords": [],
   "author": "Pricarol",
   "license": "ISC",
