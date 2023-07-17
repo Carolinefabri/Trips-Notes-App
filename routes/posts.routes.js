@@ -3,8 +3,9 @@ const Post = require("../models/Post.model");
 const uploader = require("../middleware/cloudinary.config");
 
 router.get("/", async (req, res) => {
+  console.log(req.session)
   try {
-    const posts = await Post.find();
+    const posts = await Post.find({userId:req.session.userId});
     res.render("posts", { posts, currentUser: req.user });
   } catch (error) {
     console.error("Error retrieving posts:", error);
@@ -16,14 +17,15 @@ router.get("/create", (req, res) => {
   res.render("posts/new-post");
 });
 
+
 router.post("/create", uploader.single("image"), async (req, res) => {
   const { location, title, comment } = req.body;
-  const payload = { location, title, comment };
+  const payload = { location, title, comment, userId: req.session.userId};
   if (req.file) {
     payload.image = req.file.path;
   }
 
-  try {
+  try { 
     const newPost = await Post.create(payload);
     res.redirect("/posts");
   } catch (error) {
