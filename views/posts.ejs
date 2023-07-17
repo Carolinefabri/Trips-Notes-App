@@ -21,13 +21,13 @@
             <div class="photo-info">
               <h3>Title: <%- post.title %></h3>
               <h4>Location: <%- post.location %></h4>
-              <p><%- post.comment %></p>
+              <p> Notes: <%- post.comment %></p>
             </div>
 
             <div class="button-container1">
               <a href="/posts/<%- post._id %>/update" class="buttonDU">Update</a>
               <form action="/posts/<%- post._id %>/delete" method="POST">
-                <button type="submit" class="buttonDE">Delete</button>
+                  <input type="submit" value="Delete" id="buttonDE">
               </form>
             </div>
           </div>
