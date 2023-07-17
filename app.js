@@ -7,7 +7,7 @@ const path = require('path');
 const User = require('./models/user');
 const Post = require('./models/Post.model');
 const postRoutes = require('./routes/posts.routes');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 
 const app = express();
@@ -20,7 +20,7 @@ app.use(
       sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
       secure: process.env.NODE_ENV === 'production',
       httpOnly: true,
-      maxAge: 60000 * 60 * 24 * 7// 60 * 1000 ms === 1 min
+      maxAge: 60000 * 60 * 24 * 7//
     }
   })
 );
