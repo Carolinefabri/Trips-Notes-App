@@ -1,4 +1,3 @@
-
 require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
@@ -12,6 +11,20 @@ const bcrypt = require('bcrypt');
 
 
 const app = express();
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      secure: process.env.NODE_ENV === 'production',
+      httpOnly: true,
+      maxAge: 60000 * 60 * 24 * 7// 60 * 1000 ms === 1 min
+    }
+  })
+);
+
 app.use(express.static('public'));
 const MONGODB_URI = 'mongodb://127.0.0.1:27017/travelgraphy';
 
@@ -44,13 +57,22 @@ mongoose
       return false; // Autenticação falhou
     };
 
-    app.use(
-      session({
-        secret: 'seu_secreto_aqui',
-        resave: false,
-        saveUninitialized: true,
-      })
-    );
+ 
+
+// Middleware para definir a propriedade currentUser
+app.use((req, res, next) => {
+  // Verifique se o usuário está autenticado
+  if (req.session.currentUser) {
+    // Defina a propriedade currentUser na sessão
+    res.locals.currentUser = req.session.currentUser;
+  } else {
+    // Se o usuário não estiver autenticado, defina a propriedade como null
+    res.locals.currentUser = null;
+  }
+  next();
+});
+
+
 
     // Rota da página inicial
     app.get('/', (req, res) => {
@@ -219,24 +241,22 @@ app.use((req, res, next) => {
 app.get('/posts', (req, res) => {
   // Verifique se o usuário está autenticado
   if (req.isAuthenticated()) {
-    const userId = req.user.id; // Obtenha o ID do usuário autenticado
+    const userId = req.user.id; 
 
     // Recupere os posts do usuário autenticado com base no ID no banco de dados
     Post.find({ userId: userId })
       .then(posts => {
-        // Renderize a página "posts.ejs" e passe os posts e a variável currentUser
+        
         res.render('posts', { posts: posts, currentUser: req.user });
       })
       .catch(err => {
-        // Lida com erros, se houver
+        
       });
   } else {
-    // O usuário não está autenticado, redirecione-o para a página de login ou exiba uma mensagem de erro
-    res.redirect('/login'); // ou res.render('error', { message: 'Faça login para acessar os posts.' });
+    
+    res.redirect('/signin'); 
   }
 });
-
-
 
 
 // Rota para criar um novo post
@@ -256,12 +276,6 @@ app.post('/new-post', async (req, res) => {
     res.status(500).send('Error creating post');
   }
 });
-
-
-
-
-
-
 
     // Iniciar o servidor
     app.listen(3000, () => {
