@@ -26,7 +26,7 @@ app.use(
 );
 
 app.use(express.static('public'));
-const MONGODB_URI = 'mongodb://127.0.0.1:27017/travelgraphy';
+const MONGODB_URI = process.env.DB_URI || 'mongodb://127.0.0.1:27017/travelgraphy';
 
 // Configurações do servidor
 app.set('view engine', 'ejs');
