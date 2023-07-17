@@ -276,9 +276,9 @@ app.post('/new-post', async (req, res) => {
     res.status(500).send('Error creating post');
   }
 });
-
+const PORT = process.env.PORT || 3000
     // Iniciar o servidor
-    app.listen(3000, () => {
+    app.listen(PORT, () => {
       console.log('Server started on port 3000');
     });
   })
